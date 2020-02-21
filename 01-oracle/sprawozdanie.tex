@@ -1,0 +1,279 @@
+\documentclass[12pt, a4paper]{mwrep}
+
+\usepackage[utf8]{inputenc}								%kodowanie znaków
+\usepackage[T1]{fontenc}								%kodowanie fontu
+\usepackage{polski}										%polskie wcięcia itp
+\usepackage{graphicx}									%wstawianie grafik
+\usepackage{booktabs}									%scalanie kolumn
+\usepackage{enumitem}									%lista a), b), c)
+\usepackage{multirow}									%scalanie komórek tabeli w pionie
+\usepackage{listings}									%wklejanie kodu z SQL
+\usepackage{xcolor}										%żeby kolory do kodu działaly
+\usepackage[margin=0.5in]{geometry}					%zmiana marginesów
+\usepackage[hidelinks]{hyperref}						%linki w spisie treści
+
+\hypersetup{linktoc=all}								%ustawienie linków w spisie treści
+\linespread{1.3}										%interlinia 1,5
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  commentstyle=\color{gray},    % comment style
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keywordstyle=\color{blue},       % keyword style
+  language=Octave,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\normalsize,			% the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{orange},     % string literal style
+  tabsize=2	                   % sets default tabsize to 2 spaces                   
+}
+%Define more keywords
+\lstdefinelanguage[Oracle]{SQL}[]{SQL}{
+  morekeywords={FUNCTION, RETURNS, RETURN, BEGIN, TRY, CATCH, PROCEDURE, TRIGGER, VIEW, IF, AFTER, BEFORE, FOR, EACH, ROW, REPLACE, ELSIF, BULK, COLLECT, GENERATED, ALWAYS, ENABLE},
+}
+
+\lstset{language=[Oracle]SQL,
+       }
+
+\lstset{
+literate=%
+{ą}{{\k{a}}}1
+{Ą}{{\k{A}}}1
+{ć}{{\'c}}1
+{Ć}{{\'{C}}}1
+{ę}{{\k{e}}}1
+{Ę}{{\k{E}}}1
+{ł}{{\l{}}}1
+{Ł}{{\L{}}}1
+{ń}{{\'n}}1
+{Ń}{{\'N}}1
+{ó}{{\'o}}1
+{Ó}{{\'O}}1
+{ś}{{\'s}}1
+{Ś}{{\'S}}1
+{ż}{{\.z}}1
+{Ż}{{\.Z}}1
+{ź}{{\'z}}1
+{Ź}{{\'Z}}1
+}
+
+\begin{document}
+
+\tableofcontents
+
+\newpage
+
+\chapter{Tabele i warunki integralnościowe}
+
+Zgodnie z poleceniami z instrukcji utworzono podstawowe tabele bazy danych.
+
+\section{Osoby}
+
+\lstinputlisting{tables/osoby.sql}
+
+\section{Wycieczki}
+
+\lstinputlisting{tables/wycieczki.sql}
+
+\section{Rezerwacje}
+
+\lstinputlisting{tables/rezerwacje.sql}
+
+\section{Dodatkowe warunki integralnościowe}
+
+\lstinputlisting{tables/constraints.sql}
+
+\chapter{Przykładowe dane}
+
+\lstinputlisting{data/data.sql}
+
+\chapter{Widoki}
+
+Utworzono widoki według wytycznych z instrukcji do ćwiczenia
+
+\section{Wycieczki\_osoby}
+
+\lstinputlisting{views/wycieczki_osoby.sql}
+
+\section{Wycieczki\_osoby\_potwierdzone}
+
+\lstinputlisting{views/wycieczki_osoby_potwierdzone.sql}
+
+\newpage
+\section{Wycieczki\_przyszle}
+
+\lstinputlisting{views/wycieczki_przyszle.sql}
+
+\section{Wycieczki\_miejsca}
+
+\lstinputlisting{views/wycieczki_miejsca.sql}
+
+\section{Dostepne\_wycieczki}
+
+\lstinputlisting{views/dostepne_wycieczki.sql}
+
+Z uwagi na posiadanie przez ten widok identycznych atrybutów jak widok wycieczki\_miejsca, zdecydowano się na odwołanie do niego bez powielania definicji.
+\newpage
+
+\section{Rezerwacje\_do\_anulowania}
+
+\lstinputlisting{views/rezerwacje_do_anulowania.sql}
+
+\chapter{Funkcje pobierające dane}
+
+\section{Uczestnicy\_wycieczki}
+
+\lstinputlisting{functions/uczestnicy_wycieczki.sql}
+
+Aby móc zwrócić wynik jako tabelę, niezbędne było zdefiniowanie własnych typów danych \ppauza dla wiersza generowanej tabeli i~dla całej tabeli, z których korzysta także kilka dalszych funkcji.
+
+\section{Rezerwacje\_osoby}
+
+\lstinputlisting{functions/rezerwacje_osoby.sql}
+
+\section{Przyszle\_rezerwacje\_osoby}
+
+\lstinputlisting{functions/przyszle_rezerwacje_osoby.sql}
+
+\section{Dostepne\_wycieczki}
+
+\lstinputlisting{functions/dostepne_wycieczki.sql}
+
+Analogicznie jak dla funkcji uczestnicy\_wycieczki zdefiniowano dwa nowe typy danych.
+
+\chapter{Procedury modyfikujące dane}
+
+Kody przedstawionych funkcji obejmują modyfikację polegającą na aktualizowaniu tabeli REZERWACJE\_LOG do dziennikowania zmian w tabeli REZERWACJE.
+
+\section{Dodaj\_rezerwacje}
+
+\lstinputlisting{procedures/dodaj_rezerwacje.sql}
+
+Do poprawnego zapisu do tabeli REZERWACJE\_LOG potrzebne było wyciągnięcie nowego numeru ID rezerwacji, identfikator sekwencji odpowiedzialnej za zwiększanie odpowiedniego pola tabeli REZERWACJE ustalono sprawdzając wartości currval wszystkich zadeklarowanych sekwencji i porównano z występującymi identyfikatorami we wszystkich tabelach.
+
+\section{Zmien\_status\_rezerwacji}
+
+\lstinputlisting{procedures/zmien_status_rezerwacji.sql}
+
+\section{Zmien\_liczbe\_miejsc}
+
+\lstinputlisting{procedures/zmien_liczbe_miejsc.sql}
+
+\chapter{Tabela dziennikująca zmiany stanu rezerwacji}
+
+\lstinputlisting{tables/rezerwacje_log.sql}
+
+Do tabeli dodano dodatkowe warunki integralnościowe \ppauza klucz obcy z tabeli REZERWACJE oraz ograniczony zakres wartości pola status.
+
+\chapter{Dodanie reduntantnego pola liczba\_wolnych\_miejsc}
+
+\section{Zmiana w tabeli Rezerwacje}
+
+\lstinputlisting{tables/liczba_wolnych_miejsc.sql}
+
+\section{Modyfikacja widoków}
+
+Spośród utworzonych widoków, tylko dwa odwołują się do tabeli Rezerwacje i wymagają zmiany.
+
+\subsection{Wycieczki\_miejsca\_2}
+
+\lstinputlisting{views/wycieczki_miejsca_2.sql}
+
+\subsection{Dostepne\_wycieczki\_2}
+
+\lstinputlisting{views/dostepne_wycieczki_2.sql}
+
+W tym przypadku zmiana jest bardzo niewielka \ppauza inna jest tylko nazwa atrybutu określającego liczbę wolnych miejsc w widoku wycieczki\_miejsca\_2.
+
+\newpage
+\section{Procedura Przelicz}
+
+\lstinputlisting{procedures/przelicz.sql}
+
+\section{Modyfikacja funkcji pobierających dane}
+
+Wśród zdefiniowanych funkcji zmiany wymaga jedynie funkcja Dostepne\_wycieczki (tylko ona zwraca tabelę zawierającą informację o miejscach).
+
+\section{Dostepne\_wycieczki\_2}
+
+\lstinputlisting{functions/dostepne_wycieczki_2.sql}
+
+\section{Modyfikacja procedur modyfikujących dane}
+
+\subsection{Dodaj\_rezerwacje\_2}
+
+\lstinputlisting{procedures/dodaj_rezerwacje_2.sql}
+
+W~tym przypadku modyfikacja polega na obniżeniu liczby wolnych miejsc dla danej wycieczki o 1, oraz skorzystaniu z reduntantnego pola zamiast widoku wycieczki\_miejsca przy decyzji, czy jest wystarczająco dużo wolnych miejsc.
+
+\subsection{Zmien\_status\_rezerwacji\_2}
+
+\lstinputlisting{procedures/zmien_status_rezerwacji_2.sql}
+
+Do funkcji dodano zmienną określającą, czy należy zmienić liczbę miejsc dla danej wycieczki (zwiększyć dla anulowania i zmniejszyć dla przejścia z anulowanej rezerwacji na inny status), a na końcu w przypadku jej niezerowej wartości aktualizuje się tabelę Wycieczki.
+
+\subsection{Zmien\_liczbe\_miejsc\_2}
+
+\lstinputlisting{procedures/zmien_liczbe_miejsc_2.sql}
+
+Różnica w stosunku do pierwotnej procedury polega na wykorzystaniu redundantnego pola zamiast widoku wycieczki\_miejsca przy obliczaniu zajętych miejsc oraz aktualizacji liczby wolnych miejsc po wykonaniu zmiany.
+
+\chapter{Zastosowanie triggerów}
+
+\section{Utworzone triggery}
+
+Poniżej przedstawiono polecenia użyte do utworzenia triggerów aktualizujących zarówno tabelę REZERWACJE\_LOG jak i pole określające liczbę wolnych miejsc.
+
+\subsection{Dodana\_rezerwacja}
+
+\lstinputlisting{triggers/dodana_rezerwacja.sql}
+
+\subsection{Zmiana\_statusu\_rezerwacji}
+
+\lstinputlisting{triggers/zmiana_statusu_rezerwacji.sql}
+
+Logika dotycząca określania czy należy zmienić liczbę wolnych miejsc w tabeli Wycieczki jest identyczna jak dla funkcji Zmien\_status\_rezerwacji\_2.
+
+\subsection{Blokada\_usuwania\_rezerwacji}
+
+\lstinputlisting{triggers/blokada_usuwania_rezerwacji.sql}
+
+\subsection{Zmiana\_liczby\_miejsc}
+
+\lstinputlisting{triggers/zmiana_liczby_miejsc.sql}
+
+Sprawdzanie czy nowa całkowita liczba miejsc jest różna od starej jest potrzebne, aby trigger zmieniający liczbę wolnych miejsc przy zmianie statusu rezerwacji działał poprawnie, bez tego warunku nowa wartość liczby wolnych miejsc była zastępowana starą (gdyż wtedy całkowite liczby miejsc się między sobą nie różniły).
+
+\section{Modyfikacja procedur modyfikujących dane}
+
+\subsection{Dodaj\_rezerwacje\_3}
+
+\lstinputlisting{procedures/dodaj_rezerwacje_3.sql}
+
+Poza brakiem wykonywania operacji dodawania danych do tabeli Rezerwacje\_log oraz wykorzystaniem redundantnego pola z tabeli Wycieczki zamiast widoku wycieczki\_miejsca zmodyfikowana funkcja nie różni się od pierwszej swojej wersji.
+
+\subsection{Zmien\_status\_rezerwacji\_3}
+
+\lstinputlisting{procedures/zmien_status_rezerwacji_3.sql}
+
+Różnice w stosunku do pierwszej wersji są podobne jak wyżej.
+
+\subsection{Zmien\_liczbe\_miejsc\_3}
+
+\lstinputlisting{procedures/zmien_liczbe_miejsc_3.sql}
+
+Tutaj w porównaniu z pierwszą wersją zmienia się jedynie wykorzystanie redundantnego pola z tabeli Wycieczki zamiast widoku wycieczki\_miejsca do określenia liczby zajętych miejsc. 
+
+Ogólnie, zastosowanie triggerów, pozwoliło przenieść logikę obsługi mechanizmu logowania oraz aktualizacji redundantnego pola tabeli Wycieczki poza procedury modyfikujące dane.
+
+\end{document}

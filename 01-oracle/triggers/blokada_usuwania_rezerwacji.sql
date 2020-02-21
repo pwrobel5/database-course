@@ -1,0 +1,7 @@
+CREATE OR REPLACE TRIGGER BLOKADA_USUWANIA_REZERWACJI
+BEFORE DELETE
+ON REZERWACJE
+FOR EACH ROW
+BEGIN
+    raise_application_error(-20200, 'Niemożliwe jest usunięcie rezerwacji!');
+END;

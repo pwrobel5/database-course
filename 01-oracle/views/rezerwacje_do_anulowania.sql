@@ -1,0 +1,10 @@
+CREATE VIEW rezerwacje_do_anulowania
+AS
+    SELECT
+        r.NR_REZERWACJI,
+        r.ID_WYCIECZKI,
+        r.ID_OSOBY,
+        r.STATUS
+    FROM REZERWACJE r
+    JOIN WYCIECZKI w ON r.ID_WYCIECZKI = w.ID_WYCIECZKI
+    WHERE r.STATUS = 'N' AND w.DATA - CURRENT_DATE BETWEEN 0 AND 7;
