@@ -1,0 +1,7 @@
+room21 = {
+    _id: 21,
+    name: "4.38",
+    building: "D17",
+    number_of_places: 15,
+    room_type: "computer laboratory"
+}

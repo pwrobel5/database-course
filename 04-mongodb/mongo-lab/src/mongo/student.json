@@ -1,0 +1,24 @@
+student1 = {
+    _id: 1,
+    first_name: "Michał",
+    last_name: "Kowalski",
+    pesel: "94091801234",
+    enrolled_courses: [
+        {course_id: 11, type: "obligatory"},
+        {course_id: 12, type: "facultative"}
+    ],
+    student_card_ID: 1100119,
+    address: {
+	street: "Mickiewicza 29/1",
+	postal_code: "30-856",
+	city: "Kraków",
+	country: "Poland"
+    },
+    faculty: "WIET",
+    field_of_study: "informatyka",
+    study_type: {
+	mode: "dzienne",
+	step: "inżynierskie"
+    }
+    year: "III"
+}

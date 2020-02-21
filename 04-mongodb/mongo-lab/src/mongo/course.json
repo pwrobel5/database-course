@@ -1,0 +1,30 @@
+course11 = {
+    _id: 11,
+    name: "Bazy danych",
+    ects: 3,
+    has_exam: false,
+    classes_terms: [
+        {room_id: 21,
+         from: "16:15",
+         to: "17:45",
+         day: "Wednesday",
+	 type: "laboratory",
+         week_interval: 2
+        },
+        {room_id: 22,
+         from: "12:50",
+         to: "14:20",
+         day: "Thursday",
+	 type: "lecture"
+         week_interval: 2
+        }
+    ],
+    number_of_hours: {
+        lecture: 15,
+        laboratory: 15
+    }
+    prerequisites: [
+        {course_id: 10},
+        {course_id: 15}
+    ]
+}
